@@ -3,10 +3,8 @@ package pl.michalski.restproject.customers;
 
 import pl.michalski.restproject.orders.Order;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -18,8 +16,8 @@ public class Customer {
     private String lastName;
     private UUID customerUuid;
 
-    @OneToOne(mappedBy = "customer")
-    private Order order;
+    @OneToMany(mappedBy = "customer")
+    private List<Order> order;
 
     public Customer() {
     }
@@ -30,11 +28,11 @@ public class Customer {
         this.customerUuid = customerUuid;
     }
 
-    public Order getOrder() {
+    public List<Order> getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(List<Order> order) {
         this.order = order;
     }
 
@@ -75,15 +73,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) &&
-                Objects.equals(name, customer.name) &&
-                Objects.equals(lastName, customer.lastName) &&
-                Objects.equals(customerUuid, customer.customerUuid);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(lastName, customer.lastName) && Objects.equals(customerUuid, customer.customerUuid) && Objects.equals(order, customer.order);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, customerUuid);
+        return Objects.hash(id, name, lastName, customerUuid, order);
     }
 
     @Override

@@ -27,17 +27,14 @@ public class LoadDatabase {
         return args -> {
             employeeRepository.save(new Employee("Bilbo", "Baggins", "burglar"));
             employeeRepository.save(new Employee("Frodo", "Baggins", "thief"));
-            employeeRepository.findAll().forEach(employee -> log.info("Preloaded " + employee));
 
 
             orderRepository.save(new Order("MacBook Pro", Status.COMPLETED));
             orderRepository.save(new Order("iPhone", Status.IN_PROGRESS));
-            orderRepository.findAll().forEach(order -> log.info("Preloaded " + order));
 
             customerRepository.save(new Customer("Bob", "Hofman", UUID.randomUUID()));
             customerRepository.save(new Customer("John", "Fredrick", UUID.randomUUID()));
             customerRepository.save(new Customer("Miami", "Beach", UUID.randomUUID()));
-            customerRepository.findAll().forEach(customer -> log.info("Preloaded " + customer));
         };
     }
 }

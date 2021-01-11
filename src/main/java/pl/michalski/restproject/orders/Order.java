@@ -13,7 +13,7 @@ public class Order {
     private String description;
     private Status status;
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
     public Order(){}
 
@@ -75,7 +75,7 @@ public class Order {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", status=" + status +
-                ", customer=" + customer +
+                ", customer=" + customer.getName() + " " + customer.getLastName() +
                 '}';
     }
 }

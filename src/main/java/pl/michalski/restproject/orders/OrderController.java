@@ -7,9 +7,10 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.mediatype.problem.Problem;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import pl.michalski.restproject.customers.CustomerRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,11 +22,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class OrderController {
     private OrderRepository orderRepository;
     private OrderModelAssembler orderModelAssembler;
-
+    private CustomerRepository customerRepository;
     @Autowired
-    public OrderController(OrderRepository orderRepository, OrderModelAssembler orderModelAssembler) {
+    public OrderController(OrderRepository orderRepository, OrderModelAssembler orderModelAssembler, CustomerRepository customerRepository) {
         this.orderRepository = orderRepository;
         this.orderModelAssembler = orderModelAssembler;
+        this.customerRepository = customerRepository;
     }
 
     @GetMapping("/orders")
@@ -46,7 +48,6 @@ public class OrderController {
     @PostMapping("/orders")
     public ResponseEntity<EntityModel<Order>> newOrder(@RequestBody Order order) {
         order.setStatus(Status.IN_PROGRESS);
-
         Order newOrder = orderRepository.save(order);
 
         return ResponseEntity

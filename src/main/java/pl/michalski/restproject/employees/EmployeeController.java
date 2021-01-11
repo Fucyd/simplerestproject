@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class  EmployeeController {
     private final EmployeeRepository employeeRepository;
